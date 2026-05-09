@@ -30,8 +30,13 @@
       <header class="toolbar">
         <button id="readingBtn" class="btn is-active" type="button">Reading</button>
         <button id="cueBtn" class="btn" type="button">Cue</button>
+        <button id="openBtn" class="btn" type="button">Open</button>
+        <button id="saveBtn" class="btn" type="button">Save</button>
+        <button id="saveAsBtn" class="btn" type="button">Save As</button>
         <button id="renderBtn" class="btn btn-primary" type="button">Render</button>
+        <input id="fileInput" type="file" accept=".stagemd,.md,.txt,text/plain" hidden />
       </header>
+      <div id="statusBar" class="statusbar">未儲存變更</div>
       <section class="workspace">
         <div class="pane">
           <div class="pane-title">Editor</div>
@@ -39,7 +44,7 @@
         </div>
         <div class="pane">
           <div class="pane-title">Preview</div>
-          <iframe id="preview" title="StageMD Preview"></iframe>
+          <iframe id="preview" title="StageMD Preview" scrolling="auto"></iframe>
         </div>
       </section>
     </main>

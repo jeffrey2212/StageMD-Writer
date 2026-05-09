@@ -102,3 +102,10 @@ render 時會轉成全形括號樣式：`【頓】`、`【等我一陣】`。
 
 - `node scripts/render-demo.js` 產生 HTML 預覽到 `dist/preview-cue.html`
 - `node scripts/export-pdf.js fixtures/into-wonderland-excerpt.stagemd dist/preview-cue.pdf cue` 匯出 PDF
+
+## Electron 開發模式
+
+1. 安裝依賴：`npm install`
+2. 啟動桌面版：`npm run electron:dev`
+
+Electron 模式會啟用原生檔案開啟/儲存對話框，不受瀏覽器 `file://` 與組織防火牆的 localhost 限制影響。
