@@ -55,3 +55,35 @@ test("frontmatter keys are not treated as character names", () => {
   assert.equal(characters.length, 1);
   assert.equal(characters[0].displayName, "老師");
 });
+
+test("parse dialogue command syntax !d speaker | speech", () => {
+  const source = [
+    "!d 老師 | 同學仔，大家快啲嚟上課啦！",
+    "!d 舞監 A | LX 1 Standby"
+  ].join("\n");
+
+  const ast = parseStageMd(source);
+  const dialogues = ast.nodes.filter((n) => n.type === "dialogue");
+
+  assert.equal(dialogues.length, 2);
+  assert.equal(dialogues[0].speaker, "老師");
+  assert.equal(dialogues[0].speech, "同學仔，大家快啲嚟上課啦！");
+  assert.equal(dialogues[1].speaker, "舞監 A");
+});
+
+test("append indented line to previous dialogue as continuation", () => {
+  const source = [
+    "!d Gigi | 我係一個叫Project TS計劃入面其中一個仿生人，",
+    "  佢哋之前通常叫我哋做1號、2號、3號咁。",
+    "燈暗。"
+  ].join("\n");
+
+  const ast = parseStageMd(source);
+  const dialogue = ast.nodes.find((n) => n.type === "dialogue");
+
+  assert.ok(dialogue);
+  assert.equal(
+    dialogue.speech,
+    "我係一個叫Project TS計劃入面其中一個仿生人，\n佢哋之前通常叫我哋做1號、2號、3號咁。"
+  );
+});

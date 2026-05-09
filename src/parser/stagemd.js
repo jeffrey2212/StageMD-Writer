@@ -1,4 +1,5 @@
 const DIALOGUE_PATTERN = /^([\p{L}\p{N}_\-\s]{1,30})([:：])\s*(.+)$/u;
+const DIALOGUE_COMMAND_PATTERN = /^!d\s+(.+?)\s*\|\s*(.+)$/u;
 const SCENE_META_PATTERN = /^@([^:：\s]+)\s*[:：]\s*(.+)$/u;
 
 export function parseStageMd(input) {
@@ -11,6 +12,7 @@ export function parseStageMd(input) {
     const raw = lines[i];
     const line = raw.trim();
     const lineNo = i + 1;
+    const lastNode = nodes.length > 0 ? nodes[nodes.length - 1] : null;
 
     if (!frontmatterClosed && line === "---") {
       if (!inFrontmatter && nodes.length === 0) {
@@ -50,6 +52,12 @@ export function parseStageMd(input) {
       continue;
     }
 
+    // Dialogue continuation by indentation: append to previous dialogue speech.
+    if ((raw.startsWith("  ") || raw.startsWith("\t")) && lastNode?.type === "dialogue") {
+      lastNode.speech = `${lastNode.speech}\n${line}`;
+      continue;
+    }
+
     if (line.startsWith("//")) {
       nodes.push({ type: "comment", line: lineNo, text: line.slice(2).trim() });
       continue;
@@ -62,6 +70,18 @@ export function parseStageMd(input) {
 
     if (line.startsWith("!cue ")) {
       nodes.push({ type: "cue", line: lineNo, text: line.slice(5).trim() });
+      continue;
+    }
+
+    const dialogueCommandMatch = line.match(DIALOGUE_COMMAND_PATTERN);
+    if (dialogueCommandMatch) {
+      nodes.push({
+        type: "dialogue",
+        line: lineNo,
+        speaker: dialogueCommandMatch[1].trim(),
+        delimiter: "：",
+        speech: dialogueCommandMatch[2].trim()
+      });
       continue;
     }
 

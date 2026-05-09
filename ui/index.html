@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StageMD Writer UI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">StageMD Writer</div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Project</div>
+        <div class="project-card">
+          <div class="project-name">Demo 劇本</div>
+          <div class="project-meta">local project</div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Scenes</div>
+        <ul id="sceneList" class="scene-list"></ul>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Characters</div>
+        <ul id="characterList" class="character-list"></ul>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="toolbar">
+        <button id="readingBtn" class="btn is-active" type="button">Reading</button>
+        <button id="cueBtn" class="btn" type="button">Cue</button>
+        <button id="renderBtn" class="btn btn-primary" type="button">Render</button>
+      </header>
+      <section class="workspace">
+        <div class="pane">
+          <div class="pane-title">Editor</div>
+          <textarea id="editor" spellcheck="false"></textarea>
+        </div>
+        <div class="pane">
+          <div class="pane-title">Preview</div>
+          <iframe id="preview" title="StageMD Preview"></iframe>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+
