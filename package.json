@@ -1,0 +1,14 @@
+{
+  "name": "stagemd-writer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chinese stage-play script editor with StageMD format.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "parse:demo": "node scripts/parse-demo.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
