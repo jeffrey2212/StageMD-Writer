@@ -71,3 +71,15 @@ test("stage directions use distinct Kai-style font family", () => {
 
   assert.match(html, /\.stage-direction\s*\{[\s\S]*font-family: "DFKai-SB", "BiauKai", "KaiTi", "STKaiti", serif;/);
 });
+
+test("embedded mode uses full-width layout for iframe preview", () => {
+  const source = "老師： 測試預覽模式";
+  const ast = parseStageMd(source);
+  const html = renderHtml(ast, { profile: "reading", embedded: true });
+
+  assert.match(html, /<body class="is-embedded">/);
+  assert.match(html, /box-sizing: border-box;/);
+  assert.match(html, /body\.is-embedded \{[\s\S]*overflow-x: hidden;/);
+  assert.match(html, /body\.is-embedded main \{/);
+  assert.match(html, /width: 100%;/);
+});

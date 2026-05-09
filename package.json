@@ -8,7 +8,12 @@
     "test": "node --test",
     "parse:demo": "node scripts/parse-demo.js",
     "render:demo": "node scripts/render-demo.js",
-    "export:pdf:demo": "node scripts/export-pdf.js fixtures/into-wonderland-excerpt.stagemd dist/preview-cue.pdf cue"
+    "export:pdf:demo": "node scripts/export-pdf.js fixtures/into-wonderland-excerpt.stagemd dist/preview-cue.pdf cue",
+    "dev:ui": "node scripts/dev-server.js 4173",
+    "electron:dev": "electron electron/main.cjs"
+  },
+  "devDependencies": {
+    "electron": "^42.0.1"
   },
   "engines": {
     "node": ">=20"

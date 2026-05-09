@@ -13,6 +13,16 @@ function defaultCss() {
   --speaker-width: 8em;
   --dialogue-gap: 0.75em;
 }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+}
 body {
   margin: 0;
   background: #f7f5ef;
@@ -23,6 +33,17 @@ body {
 main {
   width: min(900px, 92vw);
   margin: 2rem auto 4rem;
+}
+body.is-embedded {
+  background: #ffffff;
+  overflow-x: hidden;
+}
+body.is-embedded main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 12px 14px 28px;
+  overflow-wrap: anywhere;
 }
 .scene-heading {
   font-size: 1.35rem;
@@ -75,6 +96,7 @@ function renderInlineDirections(text) {
 export function renderHtml(ast, options = {}) {
   const profile = options.profile ?? "reading";
   const includeCue = profile === "cue";
+  const embedded = options.embedded ?? false;
   const parts = [];
 
   for (const node of ast.nodes) {
@@ -108,14 +130,14 @@ export function renderHtml(ast, options = {}) {
   }
 
   return `<!doctype html>
-<html lang="zh-Hant">
+<html lang="zh-Hant" class="${embedded ? "is-embedded" : "is-document"}">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>StageMD Preview</title>
   <style>${defaultCss()}</style>
 </head>
-<body>
+<body class="${embedded ? "is-embedded" : "is-document"}">
   <main>
 ${parts.join("\n")}
   </main>
