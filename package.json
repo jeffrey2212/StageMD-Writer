@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "parse:demo": "node scripts/parse-demo.js"
+    "parse:demo": "node scripts/parse-demo.js",
+    "render:demo": "node scripts/render-demo.js",
+    "export:pdf:demo": "node scripts/export-pdf.js fixtures/into-wonderland-excerpt.stagemd dist/preview-cue.pdf cue"
   },
   "engines": {
     "node": ">=20"
